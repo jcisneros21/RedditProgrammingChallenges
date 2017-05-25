@@ -25,13 +25,35 @@ public class KnightUnits {
     int lowIndex = this.otherIndex(highIndex);
     boolean isAxisEven = this.isEven(end_coordinates[highIndex]);
 
+    int times = 0;
     if(isAxisEven == false){
       start_coordinates[highIndex] += 1;
       start_coordinates[lowIndex] += 2;
+      times++;
     }
 
-    int times = 0;
-    while((start_coordinates[0] != end_coordinates[0]) && (start_coordinates[1] != end_coordinates[1])){
+    System.out.println("(" + Integer.toString(start_coordinates[0]) + "," + Integer.toString(start_coordinates[1]) + ")");
+
+    while(start_coordinates[0] != end_coordinates[0] || start_coordinates[1] != end_coordinates[1]){
+
+      if(start_coordinates[highIndex] <= end_coordinates[highIndex] && start_coordinates[lowIndex] <= end_coordinates[lowIndex]){
+        start_coordinates[highIndex] += 2;
+        start_coordinates[lowIndex] += 1;
+      }
+      else if(start_coordinates[highIndex] <= end_coordinates[highIndex] && start_coordinates[lowIndex] >= end_coordinates[lowIndex]){
+        start_coordinates[highIndex] += 2;
+        start_coordinates[lowIndex] -= 1;
+      }
+      else if(start_coordinates[highIndex] >= end_coordinates[highIndex] && start_coordinates[lowIndex] <= end_coordinates[lowIndex]){
+        start_coordinates[highIndex] -= 1;
+        start_coordinates[lowIndex] += 2;
+      }
+      else{
+        start_coordinates[highIndex] -= 1;
+        start_coordinates[lowIndex] -= 2;
+      }
+
+      System.out.println("(" + Integer.toString(start_coordinates[0]) + "," + Integer.toString(start_coordinates[1]) + ")");
       times++;
     }
 
@@ -42,14 +64,11 @@ public class KnightUnits {
 
     KnightUnits testKnight = new KnightUnits();
 
-    int test = 0;
+    int test_x = 240;
+    int test_y = 449;
 
-    test = 4;
-    System.out.println("Passing in 4, is 4 even : " + testKnight.isEven(test));
-
-    test = 3;
-    System.out.println("Passing in 3, is 3 even : " + testKnight.isEven(test));
-
-
+    int moves = testKnight.numberOfMoves(test_x,test_y);
+    System.out.println("This is the number of moves for (" + Integer.toString(test_x) +
+                       "," + Integer.toString(test_y) + ") : " + Integer.toString(moves));
   }
 }
